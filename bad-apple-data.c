@@ -12,7 +12,7 @@ int main(void) {
 	FILE *file = fopen(FILE_PATH, "w");
 	if (file == NULL) { perror("Failed to open " FILE_PATH); return 1; }
 
-	for (int file_i = 0; file_i <= 6571; file_i+=2) {
+	for (int file_i = 0; file_i <= 6571; file_i+=1) {
 		char frame_path[32] = "frames/";
 		sprintf(frame_path+7, "%04d.png", file_i);
 		if (file_i % 100 == 0) { printf("encoding %s...\n", frame_path); }

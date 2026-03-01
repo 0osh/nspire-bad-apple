@@ -10,7 +10,7 @@ all: bad-apple bad-apple.rle
 bad-apple: bad-apple.ndls.c bad-apple.rle
 	@nspire-ld $(CFLAGS) bad-apple.ndls.c -o bad-apple
 	@genzehn --input bad-apple --output bad-apple
-ifdef NPSIRECTL
+ifdef NSPIRECTL
 	@nspirectl send bad-apple /
 endif
 
@@ -24,9 +24,9 @@ bad-apple.rle: bad-apple-data.c
 		gcc bad-apple-data.c $(CFLAGS) -fsanitize=address -g -lm -o bad-apple-data; \
 		./bad-apple-data; \
 		if [ "$(NSPIRECTL)" != "" ]; then \
-			@echo "Uploading..."; \
-			@nspirectl send bad-apple.rle /; \
-			@echo "done"; \
+			echo "Uploading..."; \
+			nspirectl send bad-apple.rle /; \
+			echo "done"; \
 		fi; \
 	fi
 
