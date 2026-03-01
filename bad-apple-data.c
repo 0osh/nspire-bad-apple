@@ -6,6 +6,8 @@
 #define WIDTH 320
 #define HEIGHT 240
 
+#define vertical(x) (x % HEIGHT) * WIDTH + x / HEIGHT
+
 #define FILE_PATH "bad-apple.rle"
 
 int main(void) {
@@ -22,8 +24,8 @@ int main(void) {
 		int i = 0;
 		while (i < WIDTH*HEIGHT) {
 			int start = i;
-			while (i < WIDTH*HEIGHT && image[i] == image[start] && i - start < 0x7FFF) { i++; }
-			uint16_t len = ((uint16_t) (i - start) & 0x7FFF) | (image[start] << 15);
+			while (i < WIDTH*HEIGHT && image[vertical(i)] == image[vertical(start)] && i - start < 0x7FFF) { i++; }
+			uint16_t len = ((uint16_t) (i - start) & 0x7FFF) | (image[vertical(start)] << 15);
 			fwrite(&len, sizeof(uint16_t), 1, file);
 		}
 

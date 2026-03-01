@@ -22,9 +22,8 @@ int main(int argc, char *argv[]) {
 	if (file == NULL) { FATAL("Failed to open " FILE_PATH); }
 
 
-	uint16_t fb[HEIGHT][WIDTH];
+	uint16_t fb[WIDTH][HEIGHT];
 	uint16_t *fb_linear = &fb[0][0];
-	bool showEOF = true;
 
 	uint16_t len;
 
@@ -42,7 +41,7 @@ int main(int argc, char *argv[]) {
 			i += len;
 		}
 
-		lcd_blit(fb, SCR_320x240_565);
+		lcd_blit(fb, SCR_240x320_565);
 
 		if (isKeyPressed(KEY_NSPIRE_SPACE)) {
 			wait_no_key_pressed();
@@ -51,7 +50,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		idle();
-		msleep(60);
+		msleep(20);
 	}
 
 

@@ -17,7 +17,7 @@ endif
 
 
 bad-apple.rle: bad-apple-data.c
-	@echo -n "Build rle file? (y/n)  "; \
+	@echo -n "Build rle file? (y/N)  "; \
 	read BUILD_RLE; \
 	if [ "$$BUILD_RLE" = "y" ]; then \
 		echo "Building rle file..."; \
