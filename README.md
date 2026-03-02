@@ -8,7 +8,7 @@ basic program i whipped up in like 5 hours that plays bad apple using ndless. it
 First, install [libnspire](https://github.com/Vogtinator/libnspire).
 
 Then run `make` and select `y` when prompted to build `bad-apple.rle`.
-If you have [nspirectl](https://github.com/0osh/nspirectl) installed then run make with `NSPIRECTL` set to any value to use it to upload the files automatically. Or edit the makefile and set it there. If it's taking too long to upload, change this line in `bad-apple.data.c`
+To upload the files automatically too, run `make upload`. It defaults to using [nspirectl](https://github.com/0osh/nspirectl), but its easy enough to change the makefile to run your own upload command. If it's taking too long to upload, change this line in `bad-apple.data.c`
 ```c
 for (int file_i = 0; file_i <= 6571; file_i+=1) {
 ```

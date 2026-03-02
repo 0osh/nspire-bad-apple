@@ -8,11 +8,16 @@
 
 #define vertical(x) (x % HEIGHT) * WIDTH + x / HEIGHT
 
+#define BUFFER_SIZE 4096
+
 #define FILE_PATH "bad-apple.rle"
 
 int main(void) {
 	FILE *file = fopen(FILE_PATH, "w");
 	if (file == NULL) { perror("Failed to open " FILE_PATH); return 1; }
+
+	uint16_t buffer[BUFFER_SIZE];
+	int buffer_len = 0;
 
 	for (int file_i = 0; file_i <= 6571; file_i+=1) {
 		char frame_path[32] = "frames/";
@@ -26,11 +31,14 @@ int main(void) {
 			int start = i;
 			while (i < WIDTH*HEIGHT && image[vertical(i)] == image[vertical(start)] && i - start < 0x7FFF) { i++; }
 			uint16_t len = ((uint16_t) (i - start) & 0x7FFF) | (image[vertical(start)] << 15);
-			fwrite(&len, sizeof(uint16_t), 1, file);
+			buffer[buffer_len++] = len;
+			if (buffer_len >= BUFFER_SIZE) { fwrite(buffer, sizeof(uint16_t), buffer_len, file); buffer_len = 0; }
 		}
 
 		stbi_image_free(image);
 	}
+
+	fwrite(buffer, sizeof(uint16_t), buffer_len, file);
 
 	fclose(file);
 
